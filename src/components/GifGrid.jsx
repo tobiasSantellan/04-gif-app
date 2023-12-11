@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from "prop-types";
-import { getGifs } from "../helpers/GetGifs";
 import { useEffect, useState } from "react";
+import { GifItem } from "./GifItem";
+import { getGifs } from "../helpers/GetGifs";
 
 export const GifGrid = ({ category }) => {
   const [images, setImages] = useState([]);
@@ -17,11 +19,12 @@ export const GifGrid = ({ category }) => {
     <>
       <h3>{category}</h3>
 
-      <ol>
-        {images.map(({ id, title }) => (
-          <li key={id}>{title}</li>
+      {/* generamos un list item de manera de manera dinamica con las imagenes que tenemos almacenadas en el use state */}
+      <div className="card-grid">
+        {images.map((image) => (
+          <GifItem key={image.id} {...image} />
         ))}
-      </ol>
+      </div>
     </>
   );
 };

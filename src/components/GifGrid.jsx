@@ -1,23 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+
 import { GifItem } from "./GifItem";
-import { getGifs } from "../helpers/GetGifs";
+import { useFetchGifs } from "../hooks/useFetchGifs";
 
 export const GifGrid = ({ category }) => {
-  const [images, setImages] = useState([]);
-
-  const getImagen = async () => {
-    const nuevaImagen = await getGifs(category);
-    setImages(nuevaImagen);
-  };
-  useEffect(() => {
-    getImagen();
-  }, []);
+  const { images, isLoading } = useFetchGifs(category);
 
   return (
     <>
       <h3>{category}</h3>
+      {isLoading && <h2>Cargando ...</h2>}
 
       {/* generamos un list item de manera de manera dinamica con las imagenes que tenemos almacenadas en el use state */}
       <div className="card-grid">
